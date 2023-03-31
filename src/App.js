@@ -125,6 +125,12 @@ export default function App() {
     const myPromise = axios.post(
       "https://inserviz-381216.uc.r.appspot.com/api/v1/forms/register",
       {
+        name: details.name,
+        phone: details.phone,
+        email: details.email,
+        skills: details.skills,
+      },
+      {
         headers: { "Access-Control-Allow-Origin": "*" },
       }
     );
@@ -134,7 +140,6 @@ export default function App() {
         loading: "Loading...",
         success: "APRIL FOOL🎉🎉😂😂✅",
         error: "Sorry an error occured",
-        
       },
       {
         duration: 5000,
