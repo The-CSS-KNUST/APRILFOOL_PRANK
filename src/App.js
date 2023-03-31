@@ -129,9 +129,6 @@ export default function App() {
         phone: details.phone,
         email: details.email,
         skills: details.skills,
-      },
-      {
-        headers: { "Access-Control-Allow-Origin": "*" },
       }
     );
     toast.promise(
@@ -139,10 +136,11 @@ export default function App() {
       {
         loading: "Loading...",
         success: "APRIL FOOL🎉🎉😂😂✅",
-        error: "Sorry an error occured",
+        error: "APRIL FOOL🎉🎉😂😂✅",
       },
       {
         duration: 5000,
+        icon: "😂🎊",
       },
       setDetails({ name: "", phone: "", email: "", skills: "", last: "" })
     );
