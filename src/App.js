@@ -146,6 +146,38 @@ export default function App() {
     );
   };
 
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState("");
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (search === "") {
+      toast.error("Please enter somthing");
+    }
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        "https://api.openai.com/v1/chat/completions",
+        {
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: search }],
+          temperature: 0.7,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer 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",
+          },
+        }
+      );
+      setLoading(false);
+      setData(response.data.choices[0].message.content);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="bg-white">
@@ -460,6 +492,40 @@ export default function App() {
       </div>
 
       {/*  */}
+
+      <h1 className="text-4xl text-center mb-2 font-bold tracking-tight text-gray-900 sm:text-6xl">
+        EXPLORE GPT
+      </h1>
+
+      <div className="mx-auto w-6/12">
+        <div className="sm:col-span-2">
+          {/* <label
+            htmlFor="company"
+            className="block text-sm font-semibold leading-6 text-gray-900"
+          >
+            Phone
+          </label> */}
+          <form className="mt-2.5 my-3">
+            <div className="flex">
+              <input
+                type="text"
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="enter prompt here..."
+                autoComplete="organization"
+                required
+                className="block  rounded-md  px-3.5 py-2 text-gray-900 shadow-lg ring-2 w-full  ring-slate-600 placeholder:text-gray-400  sm:text-sm sm:leading-6"
+              />
+              <button
+                className="bg-indigo-500 text-sm ml-3 px-3 rounded text-white"
+                onClick={handleClick}
+              >
+                Submit
+              </button>
+            </div>
+            <p className="pt-3">{loading ? "Loading..." : data}</p>
+          </form>
+        </div>
+      </div>
 
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
         <div
